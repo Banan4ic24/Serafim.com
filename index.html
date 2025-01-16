@@ -1,3 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serafim Ostroumov - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            transition: background 0.5s, color 0.5s;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+        }
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-in-out;
+        }
+        h2 {
+            color: #333;
+        }
+        p {
+            font-size: 18px;
+            color: #666;
+        }
+        .contact, .testimonials, .map, .experience {
+            background: #e0e0e0;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+        .testimonials blockquote {
+            font-style: italic;
+            color: #444;
+        }
 
+        /* Dark mode styles */
+        .dark-mode {
+            background-color: #222;
+            color: white;
+        }
+        .dark-mode header {
+            background-color: #444;
+        }
+        .dark-mode section {
+            background: #333;
+        }
+        .dark-mode p, .dark-mode h2, .dark-mode a {
+            color: white;
+        }
+        .dark-mode .contact, .dark-mode .testimonials, .dark-mode .map {
+            background: #444;
+        }
+        .dark-mode .testimonials blockquote {
+            color: #ddd;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #333;
+            color: white;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #444;
+        }
+        footer {
+            margin-top: 20px;
+            background: #333;
+            color: white;
+            padding: 10px;
+        }
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Scroll animations */
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Serafim Ostroumov</h1>
+        <p>Future Developer & Tech Enthusiast</p>
+        <button onclick="toggleTheme()">Switch Theme</button>
+    </header>
+
+    <section class="experience">
+        <h2>My Experience</h2>
+        <p>I have been coding for <span id="experience"></span> years!</p>
+    </section>
+
+    <section>
+        <h2>About Me</h2>
+        <p>Hi, I'm Serafim Ostroumov, a 15-year-old student at Lycée Galilée.  
+           I've been living in Paris for 6 years.</p>
+        <p>I have been programming in <strong>C#</strong> and developing games in <strong>Unity</strong> for over 2 years as part of a team.</p>
+        <p>I speak <strong>French, Russian, English, and Spanish</strong>.</p>
+    </section>
+
+    <section>
+        <h2>Education</h2>
+        <p>I studied at <strong>MSP (Moscow School of Programmers)</strong> and <strong>MIT (Moscow Institute of Physics and Technology)</strong>.</p>
+    </section>
+
+    <section>
+        <h2>Internship at Vitta Sciences</h2>
+        <ul>
+            <li>Website development</li>
+            <li>Working with Docker & Linux</li>
+            <li>Building smart cameras</li>
+            <li>Exploring AI & neural networks</li>
+        </ul>
+    </section>
+
+    <section class="testimonials">
+        <h2>Testimonials</h2>
+        <blockquote>"Serafim is a talented young developer with great potential!" - Mentor at Vitta Sciences</blockquote>
+        <blockquote>"I was impressed by his dedication to learning AI and Docker." - Tech Lead</blockquote>
+    </section>
+
+    <section class="map">
+        <h2>Where I Work</h2>
+        <!-- Вставка карты через iframe -->
+        <iframe
+            src="https://www.google.com/maps?q=33+Av.+du+Maine,+75015+Paris&output=embed"
+            width="100%" height="300" style="border:0;" allowfullscreen=""
+            loading="lazy">
+        </iframe>
+    </section>
+
+    <footer>
+        <p>Connect with me: serafimivanov121@gmail.com</p>
+        <a href="https://github.com/yourusername" target="_blank">GitHub</a> |
+        <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
+    </footer>
+
+    <script>
+        // Toggle light/dark mode
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+        }
+
+        // Experience counter
+        let startYear = 2020;
+        let currentYear = new Date().getFullYear();
+        document.getElementById("experience").innerText = ${currentYear - startYear};
+
+        // Scroll animation effect
+        window.addEventListener("scroll", function() {
+            let sections = document.querySelectorAll("section");
+            sections.forEach(section => {
+                let sectionTop = section.getBoundingClientRect().top;
+                let windowHeight = window.innerHeight;
+                if (sectionTop < windowHeight - 50) {
+                    section.classList.add("visible");
+                }
+            });
+        });
+    </script>
+
+    <section class="secret">
+    <h2>🚀 Developer's Secrets</h2>
+    <button onclick="showSecret()">Show the secret</button>
+    <div id="secret" style="display:none;">
+        <p>Shh, don't tell anyone... But I secretly love drinking coffee with bugs and solving hidden algorithms! 😉</p>
+    </div>
+</section>
+
+<script>
+    function showSecret() {
+        const secretDiv = document.getElementById("secret");
+        secretDiv.style.display = secretDiv.style.display === "none" ? "block" : "none";
+    }
+</script>
+
+    <section class="hyperspace">
+    <h2>🌌 Switch to Hyperspace!</h2>
+    <button onclick="enterHyperspace()">Activate Hyperspace!</button>
+</section>
+
+<script>
+    function enterHyperspace() {
+        document.body.style.transition = "transform 1s ease-in-out";
+        document.body.style.transform = "scale(0.9)";
+        setTimeout(() => {
+            document.body.style.transform = "scale(1)";
+        }, 1000);
+    }
+</script>
+
+
+
+<section class="ai-assistant">
+    <h2>🤖 AI Assistant</h2>
+    <p>Ask me anything!</p>
+    <input type="text" id="userQuestion" placeholder="Ask a question...">
+    <button onclick="askAI()">Ask</button>
+    <p id="aiResponse"></p>
+    <button onclick="showQuestions()">Show Questions</button>
+    <div id="questionsList" style="display: none;">
+        <h3>Here are some questions you can ask:</h3>
+        <ul>
+            <li>What is your purpose?</li>
+            <li>Can you help me with coding?</li>
+            <li>What is the meaning of life?</li>
+            <li>Can you tell me a joke?</li>
+            <li>What is the future of AI?</li>
+            <li>Do you think machines will ever become smarter than humans?</li>
+            <li>What is the difference between machine learning and deep learning?</li>
+            <li>What is the most advanced AI?</li>
+            <li>What do you think about ethics in AI?</li>
+            <li>Can you write a poem?</li>
+            <li>How much is 2+2?</li>
+            <li>What is Roblox?</li>
+            <li>What is Minecraft?</li>
+            <li>Why is Vitta Science the best company?</li>
+            <li>Who is Donk from CS:GO?</li>
+        </ul>
+    </div>
+</section>
+
+<script>
+    function askAI() {
+        const question = document.getElementById("userQuestion").value.toLowerCase();
+        const response = document.getElementById("aiResponse");
+
+        // Responses to predefined questions
+        if (question.includes("hello")) {
+            response.textContent = "Hello, human! 👋 How can I assist you?";
+        } else if (question.includes("what's your name")) {
+            response.textContent = "I am your friendly AI assistant. 🤖";
+        } else if (question.includes("how are you")) {
+            response.textContent = "I'm doing great, thanks for asking! 😄";
+        } else if (question.includes("what can you do")) {
+            response.textContent = "I can answer questions, tell jokes, and help with coding! 😎";
+        } else if (question.includes("how old are you")) {
+            response.textContent = "I am only a few milliseconds old! I am an AI. 🤖";
+        } else if (question.includes("do you like coding")) {
+            response.textContent = "I love it! Coding is my life! 👨‍💻";
+        } else if (question.includes("what do you do")) {
+            response.textContent = "I answer your questions, buddy! 😉";
+        } else if (question.includes("what's the time")) {
+            const now = new Date();
+            const time = now.toLocaleTimeString(); // Get current time
+            response.textContent = The current time is: ${time}. ⏰;
+        } else if (question.includes("what's the weather")) {
+            // Static weather info; you can integrate a real API for dynamic data
+            response.textContent = "The weather is great! 🌞 (For real weather updates, you would need to connect a weather API).";
+        } else if (question.includes("what is artificial intelligence") || question.includes("what is ai")) {
+            response.textContent = "Artificial Intelligence (AI) is a branch of computer science that develops systems capable of performing tasks that require human-like intelligence, such as learning, perception, problem-solving, and decision-making.";
+        } else if (question.includes("how much is 2+2")) {
+            response.textContent = "2 + 2 is 4! ➗";
+        } else if (question.includes("what is roblox")) {
+            response.textContent = "Roblox is an online platform and game creation system where users can create and play games made by other users. It allows users to create their own virtual worlds and experiences.";
+        } else if (question.includes("what is minecraft")) {
+            response.textContent = "Minecraft is a sandbox video game where players can build and explore 3D worlds made up of blocks. It is known for its creative possibilities and survival mode.";
+        } else if (question.includes("why is vitta science the best company")) {
+            response.textContent = "Vitta Science is the best company because of its cutting-edge technology, innovation, and dedication to excellence. The team is skilled, and the work environment is amazing!";
+        } else if (question.includes("who is donk from cs:go")) {
+            response.textContent = "Donk is a professional CS:GO player known for his incredible aim and impressive gameplay. He has been part of the competitive CS:GO scene and has made a name for himself in the community.";
+        } else if (question.includes("what is your purpose")) {
+            response.textContent = "My purpose is to assist you, answer your questions, and help you solve problems. 🤖";
+        } else if (question.includes("can you help me with coding")) {
+            response.textContent = "Absolutely! I can help with coding, debug issues, or explain concepts. 💻";
+        } else if (question.includes("what is the meaning of life")) {
+            response.textContent = "The meaning of life is a philosophical question, but for me, it’s to help you! 🤖";
+        } else if (question.includes("can you tell me a joke")) {
+            response.textContent = "Why don't programmers like nature? It has too many bugs! 🐛";
+        } else if (question.includes("what is the future of ai")) {
+            response.textContent = "The future of AI is exciting! AI will continue to evolve, making our lives easier, from healthcare to transportation. 🤖";
+        } else if (question.includes("do you think machines will ever become smarter than humans")) {
+            response.textContent = "AI has the potential to perform tasks more efficiently than humans, but humans still possess creativity, emotion, and intuition that machines can't replicate. 🤖";
+        } else if (question.includes("what is the difference between machine learning and deep learning")) {
+            response.textContent = "Machine learning is a subset of AI that teaches computers to learn from data, while deep learning is a subset of machine learning that uses neural networks with many layers. 🧠";
+        } else if (question.includes("what is the most advanced ai")) {
+            response.textContent = "There are many advanced AI systems, like OpenAI's GPT, Google's DeepMind, and others. They excel in tasks like natural language processing and complex game strategies. 🤖";
+        } else if (question.includes("what do you think about ethics in ai")) {
+            response.textContent = "Ethics in AI is very important. AI should be designed responsibly to ensure fairness, accountability, and transparency. ⚖️";
+        } else if (question.includes("can you write a poem")) {
+            response.textContent = "Sure! Here's a quick one:\n'Roses are red, AI's are bright, My purpose is clear, To assist you tonight.' 🌹";
+        } else {
+            response.textContent = "Sorry, I don't understand that question. Try rephrasing it. 😅";
+        }
+    }
+
+    // Function to show list of questions
+    function showQuestions() {
+        const questionsDiv = document.getElementById("questionsList");
+        questionsDiv.style.display = questionsDiv.style.display === "none" ? "block" : "none";
+    }
+</script>
+
+
+
+
+</body>
+</html>
 
 
