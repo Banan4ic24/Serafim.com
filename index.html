@@ -287,6 +287,21 @@
     }
 </script>
 
+<button id="gameButton" onclick="clickGame()">Click me fast!</button>
+<p id="gameResult"></p>
+
+<script>
+    function clickGame() {
+        document.getElementById("gameButton").style.display = "none";
+        document.getElementById("gameResult").textContent = "🎉 You won!";
+        setTimeout(() => {
+            document.getElementById("gameButton").style.display = "block";
+            document.getElementById("gameResult").textContent = "";
+        }, 2000);
+    }
+</script>
+
+    
     <button onclick="hackerMode()">💻 Hacker Mode</button>
 <pre id="hackerText"></pre>
 
