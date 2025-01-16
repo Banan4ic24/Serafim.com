@@ -12,6 +12,7 @@
             padding: 0;
             background-color: #f4f4f4;
             text-align: center;
+            color: #333; /* Default text color */
             transition: background 0.5s, color 0.5s;
         }
         header {
@@ -32,11 +33,11 @@
             transition: all 0.5s ease-in-out;
         }
         h2 {
-            color: #333;
+            color: #333; /* Default header color */
         }
         p {
             font-size: 18px;
-            color: #666;
+            color: #666; /* Default paragraph color */
         }
         .contact, .testimonials, .map, .experience {
             background: #e0e0e0;
@@ -48,19 +49,23 @@
             font-style: italic;
             color: #444;
         }
+
+        /* Dark mode styles */
         .dark-mode {
-            background-color: #222;
-            color: white;
+            background-color: #222; /* Dark background */
+            color: white; /* White text in dark mode */
         }
         .dark-mode header {
-            background-color: #444;
+            background-color: #444; /* Dark header background */
         }
         .dark-mode section {
-            background: #333;
-            color: white;
+            background: #333; /* Dark section background */
         }
         .dark-mode p, .dark-mode h2, .dark-mode a {
-            color: white;
+            color: white; /* White text for paragraphs, headers and links in dark mode */
+        }
+        .dark-mode .contact, .dark-mode .testimonials, .dark-mode .map {
+            background: #444; /* Dark background for these sections */
         }
         button {
             margin: 10px;
