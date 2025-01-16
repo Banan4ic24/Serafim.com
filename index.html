@@ -52,8 +52,14 @@
             background-color: #222;
             color: white;
         }
+        .dark-mode header {
+            background-color: #444;
+        }
         .dark-mode section {
             background: #333;
+            color: white;
+        }
+        .dark-mode p, .dark-mode h2, .dark-mode a {
             color: white;
         }
         button {
@@ -61,13 +67,13 @@
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-        }
-        form input, form textarea {
-            width: 90%;
-            padding: 10px;
-            margin: 10px 0;
+            border: none;
+            background-color: #333;
+            color: white;
             border-radius: 5px;
-            border: 1px solid #ccc;
+        }
+        button:hover {
+            background-color: #444;
         }
         footer {
             margin-top: 20px;
@@ -91,13 +97,12 @@
     </section>
 
     <section>
-    <h2>About Me</h2>
-    <p>Hi, I'm Serafim Ostroumov, a 15-year-old student at Lycée Galilée.  
-       I've been living in Paris for 6 years.</p>
-    <p>I have been programming in <strong>C#</strong> and developing games in <strong>Unity</strong> for over 2 years as part of a team.</p>
-    <p>I speak <strong>French, Russian, English, and Spanish</strong>.</p>
-</section>
-
+        <h2>About Me</h2>
+        <p>Hi, I'm Serafim Ostroumov, a 15-year-old student at Lycée Galilée.  
+           I've been living in Paris for 6 years.</p>
+        <p>I have been programming in <strong>C#</strong> and developing games in <strong>Unity</strong> for over 2 years as part of a team.</p>
+        <p>I speak <strong>French, Russian, English, and Spanish</strong>.</p>
+    </section>
 
     <section>
         <h2>Internship at Vitta Sciences</h2>
@@ -109,15 +114,6 @@
         </ul>
     </section>
 
-    <section>
-    <h2>Education</h2>
-    <ul>
-        <li>Studied at <strong>Moscow School of Programmers (МШП)</strong></li>
-        <li>Attended <strong>Moscow Institute of Physics and Technology (MIPT, МФТИ)</strong> courses</li>
-    </ul>
-</section>
-
-
     <section class="testimonials">
         <h2>Testimonials</h2>
         <blockquote>"Serafim is a talented young developer with great potential!" - Mentor at Vitta Sciences</blockquote>
@@ -125,31 +121,17 @@
     </section>
 
     <section class="map">
-    <h2>Where I Study</h2>
-    <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.642866486175!2d2.364985476652423!3d48.865512671261215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e0637c35f8b%3A0x8e8f62d59f8e4c23!2sLyc%C3%A9e%20Galil%C3%A9e!5e0!3m2!1sen!2sfr!4v1705410234567!5m2!1sen!2sfr" 
-        width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
-    </iframe>
-</section>
-
-
-    <section class="contact">
-        <h2>Contact Me</h2>
-        <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-            <label>Your Name:</label>
-            <input type="text" name="name" required>
-            <label>Your Email:</label>
-            <input type="email" name="email" required>
-            <label>Message:</label>
-            <textarea name="message" required></textarea>
-            <button type="submit">Send</button>
-        </form>
+        <h2>Where I Study</h2>
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=YOUR-MAP-LINK-HERE" 
+            width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
     </section>
 
     <footer>
         <p>Connect with me:</p>
-        <a href="https://github.com/Banan4ic24" target="_blank">GitHub</a> |
-        
+        <a href="https://github.com/yourusername" target="_blank">GitHub</a> |
+        <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
     </footer>
 
     <script>
@@ -159,7 +141,7 @@
         }
 
         // Experience counter
-        let startYear = 2020;
+        let startYear = 2022;
         let currentYear = new Date().getFullYear();
         document.getElementById("experience").innerText = `${currentYear - startYear}`;
 
@@ -178,3 +160,4 @@
 
 </body>
 </html>
+
