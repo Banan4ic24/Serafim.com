@@ -447,10 +447,10 @@
         <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
     </footer>
 
-    <section>
+   <section>
         <h2>Play Snake Game</h2>
         <button onclick="startSnakeGame()">Start Snake Game</button>
-        <div id="gameContainer">
+        <div id="gameContainer" style="display:none;">
             <canvas id="snakeGame" width="400" height="400"></canvas>
             <p id="score">Score: 0</p>
         </div>
@@ -466,7 +466,7 @@
         let gameInterval;
         
         function startSnakeGame() {
-            document.getElementById("gameContainer").style.display = "block";
+            document.getElementById("gameContainer").style.display = "block";  // Показать игровой контейнер
             if (gameInterval) clearInterval(gameInterval); // Останавливаем предыдущую игру
             initializeGame();
         }
@@ -544,9 +544,16 @@
 
             function collision(head, body) {
                 for (let i = 0; i < body.length; i++) {
-                    if (head.x === body[i].
+                    if (head.x === body[i].x && head.y === body[i].y) {
+                        return true;
+                    }
+                }
+                return false;
+            }
 
-</script>
+            gameInterval = setInterval(drawGame, 100);  // Запуск игры с интервалом в 100 мс
+        }
+    </script>
 
 
 
