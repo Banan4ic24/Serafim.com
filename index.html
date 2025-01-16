@@ -447,13 +447,174 @@
         <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
     </footer>
 
-   <section>
-        <h2>Play Snake Game</h2>
-        <button onclick="startSnakeGame()">Start Snake Game</button>
-        <div id="gameContainer" style="display:none;">
-            <canvas id="snakeGame" width="400" height="400"></canvas>
-            <p id="score">Score: 0</p>
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serafim Ostroumov - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            transition: background 0.5s, color 0.5s;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+        }
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-in-out;
+        }
+        h2 {
+            color: #333;
+        }
+        p {
+            font-size: 18px;
+            color: #666;
+        }
+        .contact, .testimonials, .map, .experience {
+            background: #e0e0e0;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+        .testimonials blockquote {
+            font-style: italic;
+            color: #444;
+        }
+
+        /* Dark mode styles */
+        .dark-mode {
+            background-color: #222;
+            color: white;
+        }
+        .dark-mode header {
+            background-color: #444;
+        }
+        .dark-mode section {
+            background: #333;
+        }
+        .dark-mode p, .dark-mode h2, .dark-mode a {
+            color: white;
+        }
+        .dark-mode .contact, .dark-mode .testimonials, .dark-mode .map {
+            background: #444;
+        }
+        .dark-mode .testimonials blockquote {
+            color: #ddd;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #333;
+            color: white;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #444;
+        }
+        footer {
+            margin-top: 20px;
+            background: #333;
+            color: white;
+            padding: 10px;
+        }
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Guess the number game styles */
+        .game-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .game-container input, .game-container button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .game-container p {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Serafim Ostroumov</h1>
+        <p>Future Developer & Tech Enthusiast</p>
+        <button onclick="toggleTheme()">Switch Theme</button>
+    </header>
+
+    <section>
+        <h2>About Me</h2>
+        <p>Hi, I'm Serafim Ostroumov, a 15-year-old student at Lycée Galilée.  
+           I've been living in Paris for 6 years.</p>
+        <p>I have been programming in <strong>C#</strong> and developing games in <strong>Unity</strong> for over 2 years as part of a team.</p>
+        <p>I speak <strong>French, Russian, English, and Spanish</strong>.</p>
+    </section>
+
+    <section>
+        <h2>Education</h2>
+        <p>I studied at <strong>MSP (Moscow School of Programmers)</strong> and <strong>MIT (Moscow Institute of Physics and Technology)</strong>.</p>
+    </section>
+
+    <section>
+        <h2>Internship at Vitta Sciences</h2>
+        <ul>
+            <li>Website development</li>
+            <li>Working with Docker & Linux</li>
+            <li>Building smart cameras</li>
+            <li>Exploring AI & neural networks</li>
+        </ul>
+    </section>
+
+    <section class="map">
+        <h2>Where I Work</h2>
+        <iframe
+            src="https://www.google.com/maps?q=33+Av.+du+Maine,+75015+Paris&output=embed"
+            width="100%" height="300" style="border:0;" allowfullscreen=""
+            loading="lazy">
+        </iframe>
+    </section>
+
+    <footer>
+        <p>Connect with me: serafimivanov121@gmail.com</p>
+        <a href="https://github.com/yourusername" target="_blank">GitHub</a> |
+        <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
+    </footer>
+
+    <section class="game-container">
+        <h2>Guess the Number Game</h2>
+        <p>Guess the number between 1 and 100!</p>
+        <input type="number" id="userGuess" placeholder="Enter your guess" min="1" max="100">
+        <button onclick="checkGuess()">Check</button>
+        <p id="message"></p>
+        <p id="attempts">Attempts: 0</p>
+        <button onclick="startNewGame()">Start a New Game</button>
     </section>
 
     <script>
@@ -462,99 +623,39 @@
             document.body.classList.toggle("dark-mode");
         }
 
-        // Snake Game Logic
-        let gameInterval;
-        
-        function startSnakeGame() {
-            document.getElementById("gameContainer").style.display = "block";  // Показать игровой контейнер
-            if (gameInterval) clearInterval(gameInterval); // Останавливаем предыдущую игру
-            initializeGame();
+        // Guess the number game logic
+        let targetNumber;
+        let attempts;
+
+        function startNewGame() {
+            targetNumber = Math.floor(Math.random() * 100) + 1;
+            attempts = 0;
+            document.getElementById("message").textContent = "";
+            document.getElementById("attempts").textContent = "Attempts: 0";
+            document.getElementById("userGuess").value = "";
         }
 
-        function initializeGame() {
-            const canvas = document.getElementById("snakeGame");
-            const ctx = canvas.getContext("2d");
+        function checkGuess() {
+            const userGuess = document.getElementById("userGuess").value;
+            attempts++;
 
-            const box = 20;
-            let snake = [{ x: 10 * box, y: 10 * box }];
-            let food = {
-                x: Math.floor(Math.random() * 20) * box,
-                y: Math.floor(Math.random() * 20) * box
-            };
-            let direction = "RIGHT";
-            let score = 0;
-
-            document.addEventListener("keydown", changeDirection);
-
-            function changeDirection(event) {
-                const key = event.keyCode;
-                if (key === 37 && direction !== "RIGHT") direction = "LEFT";
-                else if (key === 38 && direction !== "DOWN") direction = "UP";
-                else if (key === 39 && direction !== "LEFT") direction = "RIGHT";
-                else if (key === 40 && direction !== "UP") direction = "DOWN";
+            if (userGuess < targetNumber) {
+                document.getElementById("message").textContent = "Too low! Try again.";
+            } else if (userGuess > targetNumber) {
+                document.getElementById("message").textContent = "Too high! Try again.";
+            } else {
+                document.getElementById("message").textContent = "Correct! You guessed the number!";
             }
 
-            function drawGame() {
-                ctx.fillStyle = "black";
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                ctx.fillStyle = "red";
-                ctx.fillRect(food.x, food.y, box, box);
-
-                for (let i = 0; i < snake.length; i++) {
-                    ctx.fillStyle = i === 0 ? "lime" : "green";
-                    ctx.fillRect(snake[i].x, snake[i].y, box, box);
-                    ctx.strokeStyle = "black";
-                    ctx.strokeRect(snake[i].x, snake[i].y, box, box);
-                }
-
-                let snakeX = snake[0].x;
-                let snakeY = snake[0].y;
-
-                if (direction === "LEFT") snakeX -= box;
-                if (direction === "UP") snakeY -= box;
-                if (direction === "RIGHT") snakeX += box;
-                if (direction === "DOWN") snakeY += box;
-
-                if (snakeX === food.x && snakeY === food.y) {
-                    score += 10;
-                    document.getElementById("score").textContent = "Score: " + score;
-                    food = {
-                        x: Math.floor(Math.random() * 20) * box,
-                        y: Math.floor(Math.random() * 20) * box
-                    };
-                } else {
-                    snake.pop();
-                }
-
-                let newHead = { x: snakeX, y: snakeY };
-
-                if (
-                    snakeX < 0 || snakeX >= canvas.width ||
-                    snakeY < 0 || snakeY >= canvas.height ||
-                    collision(newHead, snake)
-                ) {
-                    clearInterval(gameInterval);
-                    alert("Game Over! Your score: " + score);
-                    location.reload();
-                }
-
-                snake.unshift(newHead);
-            }
-
-            function collision(head, body) {
-                for (let i = 0; i < body.length; i++) {
-                    if (head.x === body[i].x && head.y === body[i].y) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-
-            gameInterval = setInterval(drawGame, 100);  // Запуск игры с интервалом в 100 мс
+            document.getElementById("attempts").textContent = "Attempts: " + attempts;
         }
+
+        // Start the first game on page load
+        startNewGame();
     </script>
 
+</body>
+</html>
 
 
     
