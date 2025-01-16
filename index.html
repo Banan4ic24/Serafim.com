@@ -201,6 +201,22 @@
     }
 </script>
 
+    <section class="hyperspace">
+    <h2>🌌 Switch to Hyperspace!</h2>
+    <button onclick="enterHyperspace()">Activate Hyperspace!</button>
+</section>
+
+<script>
+    function enterHyperspace() {
+        document.body.style.transition = "transform 1s ease-in-out";
+        document.body.style.transform = "scale(0.9)";
+        setTimeout(() => {
+            document.body.style.transform = "scale(1)";
+        }, 1000);
+    }
+</script>
+
+
 
 </body>
 </html>
