@@ -186,6 +186,22 @@
         });
     </script>
 
+    <section class="secret">
+    <h2>🚀 Developer's Secrets</h2>
+    <button onclick="showSecret()">Show the secret</button>
+    <div id="secret" style="display:none;">
+        <p>Shh, don't tell anyone... But I secretly love drinking coffee with bugs and solving hidden algorithms! 😉</p>
+    </div>
+</section>
+
+<script>
+    function showSecret() {
+        const secretDiv = document.getElementById("secret");
+        secretDiv.style.display = secretDiv.style.display === "none" ? "block" : "none";
+    }
+</script>
+
+
 </body>
 </html>
 
