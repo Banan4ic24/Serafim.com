@@ -241,6 +241,74 @@
     }
 </script>
 
+    <section class="confetti">
+    <h2>🎉 Праздничное настроение!</h2>
+    <button onclick="celebrate()">Празднуем с конфетти!</button>
+</section>
+
+<script>
+    function celebrate() {
+        const canvas = document.createElement("canvas");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        document.body.appendChild(canvas);
+
+        const ctx = canvas.getContext("2d");
+        let particles = [];
+        let numParticles = 200;
+
+        function randomColor() {
+            const colors = ["#ff6b6b", "#f7b731", "#48dbfb", "#1dd1a1", "#f368e0"];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        function createParticles(x, y) {
+            for (let i = 0; i < numParticles; i++) {
+                particles.push({
+                    x: x,
+                    y: y,
+                    radius: Math.random() * 4 + 2,
+                    color: randomColor(),
+                    speed: Math.random() * 3 + 1,
+                    angle: Math.random() * 360,
+                    angleSpeed: Math.random() * 0.1 + 0.05,
+                });
+            }
+        }
+
+        canvas.addEventListener("click", (e) => {
+            createParticles(e.clientX, e.clientY);
+        });
+
+        function updateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((particle, index) => {
+                particle.x += Math.cos(particle.angle) * particle.speed;
+                particle.y += Math.sin(particle.angle) * particle.speed;
+                particle.angle += particle.angleSpeed;
+                particle.radius *= 0.95;
+
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                ctx.fillStyle = particle.color;
+                ctx.fill();
+
+                if (particle.radius < 0.2) {
+                    particles.splice(index, 1);
+                }
+            });
+        }
+
+        function animate() {
+            updateParticles();
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    }
+</script>
+
+
 
 </body>
 </html>
