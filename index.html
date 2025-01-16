@@ -216,6 +216,30 @@
     }
 </script>
 
+<section class="ai-assistant">
+    <h2>🤖 AI Assistant</h2>
+    <p>Ask me anything!</p>
+    <input type="text" id="userQuestion" placeholder="Ask me a question...">
+    <button onclick="askAI()">Ask</button>
+    <p id="aiResponse"></p>
+</section>
+
+<script>
+    function askAI() {
+        const question = document.getElementById("userQuestion").value.toLowerCase();
+        const response = document.getElementById("aiResponse");
+
+        if (question.includes("hello")) {
+            response.textContent = "Hello, human! 👋 How can I help you today?";
+        } else if (question.includes("your name")) {
+            response.textContent = "I am your friendly AI assistant. 🤖";
+        } else if (question.includes("how are you")) {
+            response.textContent = "I am doing great, thank you! 😄";
+        } else {
+            response.textContent = "Sorry, I don’t understand that. 😅";
+        }
+    }
+</script>
 
 
 </body>
