@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
-            color: #333; /* Default text color */
+            color: #333;
             text-align: center;
             transition: background 0.5s, color 0.5s;
         }
@@ -33,11 +33,11 @@
             transition: all 0.5s ease-in-out;
         }
         h2 {
-            color: #333; /* Default header color */
+            color: #333;
         }
         p {
             font-size: 18px;
-            color: #666; /* Default paragraph color */
+            color: #666;
         }
         .contact, .testimonials, .map, .experience {
             background: #e0e0e0;
@@ -47,28 +47,28 @@
         }
         .testimonials blockquote {
             font-style: italic;
-            color: #444; /* Default testimonial color */
+            color: #444;
         }
 
         /* Dark mode styles */
         .dark-mode {
-            background-color: #222; /* Dark background */
-            color: white; /* White text in dark mode */
+            background-color: #222;
+            color: white;
         }
         .dark-mode header {
-            background-color: #444; /* Dark header background */
+            background-color: #444;
         }
         .dark-mode section {
-            background: #333; /* Dark section background */
+            background: #333;
         }
         .dark-mode p, .dark-mode h2, .dark-mode a {
-            color: white; /* White text for paragraphs, headers and links in dark mode */
+            color: white;
         }
         .dark-mode .contact, .dark-mode .testimonials, .dark-mode .map {
-            background: #444; /* Dark background for these sections */
+            background: #444;
         }
         .dark-mode .testimonials blockquote {
-            color: #ddd; /* Lighter text color for testimonials in dark mode */
+            color: #ddd;
         }
         button {
             margin: 10px;
@@ -90,11 +90,17 @@
             padding: 10px;
         }
         footer a {
-            color: white; /* Ensure links in footer are white in both themes */
+            color: white;
             text-decoration: none;
         }
         footer a:hover {
             text-decoration: underline;
+        }
+
+        /* Scroll animations */
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -121,7 +127,7 @@
 
     <section>
         <h2>Education</h2>
-        <p>I studied at <strong>MSP (Moscow School of Programmers)</strong> and <strong>MIPT (Moscow Institute of Physics and Technology)</strong>.</p>
+        <p>I studied at <strong>MSP (Moscow School of Programmers)</strong> and <strong>MIT (Moscow Institute of Physics and Technology)</strong>.</p>
     </section>
 
     <section>
@@ -140,16 +146,18 @@
         <blockquote>"I was impressed by his dedication to learning AI and Docker." - Tech Lead</blockquote>
     </section>
 
-   <section class="map">
-    <h2>Where I Study</h2>
-    <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.642866486175!2d2.364985476652423!3d48.865512671261215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e0637c35f8b%3A0x8e8f62d59f8e4c23!2sLyc%C3%A9e%20Galil%C3%A9e!5e0!3m2!1sen!2sfr!4v1705410234567!5m2!1sen!2sfr" 
-        width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
-    </iframe>
-</section>
+    <section class="map">
+        <h2>Where I Work</h2>
+        <!-- Update this with your Google Maps iframe link -->
+        <iframe 
+            src="https://www.google.com/maps/embed/v1/place?q=33+Av.+du+Maine,+75015+Paris&key=YOUR_GOOGLE_MAPS_API_KEY" 
+            width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
+    </section>
+
     <footer>
-        <p>Connect with me: serafimivanov121@gmail.com</p>
-        <a href="https://github.com/Banan4ic24" target="_blank">GitHub</a> |
+        <p>Connect with me:</p>
+        <a href="https://github.com/yourusername" target="_blank">GitHub</a> |
         <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
     </footer>
 
@@ -159,19 +167,19 @@
             document.body.classList.toggle("dark-mode");
         }
 
-        // Experience counter (updated to start from 2020)
-        let startYear = 2020;  // Опыт работы с 2020 года
-        let currentYear = new Date().getFullYear(); // Текущий год
+        // Experience counter
+        let startYear = 2020;
+        let currentYear = new Date().getFullYear();
         document.getElementById("experience").innerText = `${currentYear - startYear}`;
 
-        // Scroll animation
-        document.addEventListener("scroll", function() {
-            document.querySelectorAll("section").forEach((section) => {
+        // Scroll animation effect
+        window.addEventListener("scroll", function() {
+            let sections = document.querySelectorAll("section");
+            sections.forEach(section => {
                 let sectionTop = section.getBoundingClientRect().top;
                 let windowHeight = window.innerHeight;
                 if (sectionTop < windowHeight - 50) {
-                    section.style.opacity = 1;
-                    section.style.transform = "translateY(0)";
+                    section.classList.add("visible");
                 }
             });
         });
