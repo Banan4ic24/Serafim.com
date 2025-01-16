@@ -287,6 +287,23 @@
     }
 </script>
 
+    <button onclick="hackerMode()">💻 Hacker Mode</button>
+<pre id="hackerText"></pre>
+
+<script>
+    function hackerMode() {
+        let text = "Initializing...\nAccess Granted!\nDownloading secret data...\n[██████████] 100%\n";
+        let hackerDiv = document.getElementById("hackerText");
+        hackerDiv.textContent = "";
+        let i = 0;
+        let interval = setInterval(() => {
+            hackerDiv.textContent += text[i];
+            i++;
+            if (i >= text.length) clearInterval(interval);
+        }, 50);
+    }
+</script>
+
     
     <footer>
         <p>Connect with me:</p>
