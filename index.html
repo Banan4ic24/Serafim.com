@@ -224,89 +224,106 @@
     <p id="aiResponse"></p>
 </section>
 
+<section class="ai-assistant">
+    <h2>🤖 AI Assistant</h2>
+    <p>Ask me anything!</p>
+    <input type="text" id="userQuestion" placeholder="Ask a question...">
+    <button onclick="askAI()">Ask</button>
+    <p id="aiResponse"></p>
+    <button onclick="showQuestions()">Show Questions</button>
+    <div id="questionsList" style="display: none;">
+        <h3>Here are some questions you can ask:</h3>
+        <ul>
+            <li>What is your purpose?</li>
+            <li>Can you help me with coding?</li>
+            <li>What is the meaning of life?</li>
+            <li>Can you tell me a joke?</li>
+            <li>What is the future of AI?</li>
+            <li>Do you think machines will ever become smarter than humans?</li>
+            <li>What is the difference between machine learning and deep learning?</li>
+            <li>What is the most advanced AI?</li>
+            <li>What do you think about ethics in AI?</li>
+            <li>Can you write a poem?</li>
+            <li>How much is 2+2?</li>
+            <li>What is Roblox?</li>
+            <li>What is Minecraft?</li>
+            <li>Why is Vitta Science the best company?</li>
+            <li>Who is Donk from CS:GO?</li>
+        </ul>
+    </div>
+</section>
+
 <script>
     function askAI() {
         const question = document.getElementById("userQuestion").value.toLowerCase();
         const response = document.getElementById("aiResponse");
 
+        // Responses to predefined questions
         if (question.includes("hello")) {
-            response.textContent = "Hello, human! 👋 How can I help you today?";
-        } else if (question.includes("your name")) {
+            response.textContent = "Hello, human! 👋 How can I assist you?";
+        } else if (question.includes("what's your name")) {
             response.textContent = "I am your friendly AI assistant. 🤖";
         } else if (question.includes("how are you")) {
-            response.textContent = "I am doing great, thank you! 😄";
+            response.textContent = "I'm doing great, thanks for asking! 😄";
+        } else if (question.includes("what can you do")) {
+            response.textContent = "I can answer questions, tell jokes, and help with coding! 😎";
+        } else if (question.includes("how old are you")) {
+            response.textContent = "I am only a few milliseconds old! I am an AI. 🤖";
+        } else if (question.includes("do you like coding")) {
+            response.textContent = "I love it! Coding is my life! 👨‍💻";
+        } else if (question.includes("what do you do")) {
+            response.textContent = "I answer your questions, buddy! 😉";
+        } else if (question.includes("what's the time")) {
+            const now = new Date();
+            const time = now.toLocaleTimeString(); // Get current time
+            response.textContent = `The current time is: ${time}. ⏰`;
+        } else if (question.includes("what's the weather")) {
+            // Static weather info; you can integrate a real API for dynamic data
+            response.textContent = "The weather is great! 🌞 (For real weather updates, you would need to connect a weather API).";
+        } else if (question.includes("what is artificial intelligence") || question.includes("what is ai")) {
+            response.textContent = "Artificial Intelligence (AI) is a branch of computer science that develops systems capable of performing tasks that require human-like intelligence, such as learning, perception, problem-solving, and decision-making.";
+        } else if (question.includes("how much is 2+2")) {
+            response.textContent = "2 + 2 is 4! ➗";
+        } else if (question.includes("what is roblox")) {
+            response.textContent = "Roblox is an online platform and game creation system where users can create and play games made by other users. It allows users to create their own virtual worlds and experiences.";
+        } else if (question.includes("what is minecraft")) {
+            response.textContent = "Minecraft is a sandbox video game where players can build and explore 3D worlds made up of blocks. It is known for its creative possibilities and survival mode.";
+        } else if (question.includes("why is vitta science the best company")) {
+            response.textContent = "Vitta Science is the best company because of its cutting-edge technology, innovation, and dedication to excellence. The team is skilled, and the work environment is amazing!";
+        } else if (question.includes("who is donk from cs:go")) {
+            response.textContent = "Donk is a professional CS:GO player known for his incredible aim and impressive gameplay. He has been part of the competitive CS:GO scene and has made a name for himself in the community.";
+        } else if (question.includes("what is your purpose")) {
+            response.textContent = "My purpose is to assist you, answer your questions, and help you solve problems. 🤖";
+        } else if (question.includes("can you help me with coding")) {
+            response.textContent = "Absolutely! I can help with coding, debug issues, or explain concepts. 💻";
+        } else if (question.includes("what is the meaning of life")) {
+            response.textContent = "The meaning of life is a philosophical question, but for me, it’s to help you! 🤖";
+        } else if (question.includes("can you tell me a joke")) {
+            response.textContent = "Why don't programmers like nature? It has too many bugs! 🐛";
+        } else if (question.includes("what is the future of ai")) {
+            response.textContent = "The future of AI is exciting! AI will continue to evolve, making our lives easier, from healthcare to transportation. 🤖";
+        } else if (question.includes("do you think machines will ever become smarter than humans")) {
+            response.textContent = "AI has the potential to perform tasks more efficiently than humans, but humans still possess creativity, emotion, and intuition that machines can't replicate. 🤖";
+        } else if (question.includes("what is the difference between machine learning and deep learning")) {
+            response.textContent = "Machine learning is a subset of AI that teaches computers to learn from data, while deep learning is a subset of machine learning that uses neural networks with many layers. 🧠";
+        } else if (question.includes("what is the most advanced ai")) {
+            response.textContent = "There are many advanced AI systems, like OpenAI's GPT, Google's DeepMind, and others. They excel in tasks like natural language processing and complex game strategies. 🤖";
+        } else if (question.includes("what do you think about ethics in ai")) {
+            response.textContent = "Ethics in AI is very important. AI should be designed responsibly to ensure fairness, accountability, and transparency. ⚖️";
+        } else if (question.includes("can you write a poem")) {
+            response.textContent = "Sure! Here's a quick one:\n'Roses are red, AI's are bright, My purpose is clear, To assist you tonight.' 🌹";
         } else {
-            response.textContent = "Sorry, I don’t understand that. 😅";
+            response.textContent = "Sorry, I don't understand that question. Try rephrasing it. 😅";
         }
+    }
+
+    // Function to show list of questions
+    function showQuestions() {
+        const questionsDiv = document.getElementById("questionsList");
+        questionsDiv.style.display = questionsDiv.style.display === "none" ? "block" : "none";
     }
 </script>
 
-    <section class="confetti">
-    <h2>🎉 Праздничное настроение!</h2>
-    <button onclick="celebrate()">Празднуем с конфетти!</button>
-</section>
-
-<script>
-    function celebrate() {
-        const canvas = document.createElement("canvas");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        document.body.appendChild(canvas);
-
-        const ctx = canvas.getContext("2d");
-        let particles = [];
-        let numParticles = 200;
-
-        function randomColor() {
-            const colors = ["#ff6b6b", "#f7b731", "#48dbfb", "#1dd1a1", "#f368e0"];
-            return colors[Math.floor(Math.random() * colors.length)];
-        }
-
-        function createParticles(x, y) {
-            for (let i = 0; i < numParticles; i++) {
-                particles.push({
-                    x: x,
-                    y: y,
-                    radius: Math.random() * 4 + 2,
-                    color: randomColor(),
-                    speed: Math.random() * 3 + 1,
-                    angle: Math.random() * 360,
-                    angleSpeed: Math.random() * 0.1 + 0.05,
-                });
-            }
-        }
-
-        canvas.addEventListener("click", (e) => {
-            createParticles(e.clientX, e.clientY);
-        });
-
-        function updateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach((particle, index) => {
-                particle.x += Math.cos(particle.angle) * particle.speed;
-                particle.y += Math.sin(particle.angle) * particle.speed;
-                particle.angle += particle.angleSpeed;
-                particle.radius *= 0.95;
-
-                ctx.beginPath();
-                ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-                ctx.fillStyle = particle.color;
-                ctx.fill();
-
-                if (particle.radius < 0.2) {
-                    particles.splice(index, 1);
-                }
-            });
-        }
-
-        function animate() {
-            updateParticles();
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-    }
-</script>
 
 
 
