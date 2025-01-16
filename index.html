@@ -186,7 +186,8 @@
         });
     </script>
 
-    <section class="secret">
+   <section class="secret">
+    <h2>Секретные возможности</h2>
     <h2>🚀 Developer's Secrets</h2>
     <button onclick="showSecret()">Show the secret</button>
     <div id="secret" style="display:none;">
@@ -194,27 +195,11 @@
     </div>
 </section>
 
-<script>
-    function showSecret() {
-        const secretDiv = document.getElementById("secret");
-        secretDiv.style.display = secretDiv.style.display === "none" ? "block" : "none";
-    }
-</script>
-
-    <section class="hyperspace">
+<section class="hyperspace">
+    <h2>Секретные возможности</h2>
     <h2>🌌 Switch to Hyperspace!</h2>
     <button onclick="enterHyperspace()">Activate Hyperspace!</button>
 </section>
-
-<script>
-    function enterHyperspace() {
-        document.body.style.transition = "transform 1s ease-in-out";
-        document.body.style.transform = "scale(0.9)";
-        setTimeout(() => {
-            document.body.style.transform = "scale(1)";
-        }, 1000);
-    }
-</script>
 
 
 
