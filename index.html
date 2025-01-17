@@ -458,42 +458,111 @@
         });
     </script>
 
-    <!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dice Roller</title>
+    <title>Number Puzzle</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
         }
-        #dice {
-            font-size: 80px;
-            margin-bottom: 20px;
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+            margin: 20px auto;
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #ccc;
+            font-size: 2em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
         }
         button {
-            font-size: 20px;
-            padding: 10px 20px;
-            cursor: pointer;
+            padding: 10px;
+            margin: 20px;
         }
     </style>
 </head>
 <body>
 
-    <h1>Dice Roller</h1>
-    <div id="dice">🎲</div>
-    <button onclick="rollDice()">Roll the Dice!</button>
-    <p id="result"></p>
+    <h1>Number Puzzle</h1>
+    <div class="board" id="board"></div>
+    <button onclick="resetGame()">Reset Game</button>
+    <p id="message"></p>
 
     <script>
-        function rollDice() {
-            const dice = Math.floor(Math.random() * 6) + 1;
-            document.getElementById("dice").textContent = "🎲 " + dice;
-            document.getElementById("result").textContent = "You rolled a " + dice + "!";
+        const board = document.getElementById("board");
+        let puzzle = [1, 2, 3, 4, 5, 6, 7, 8, ""];
+        let emptyIndex = 8;
+
+        function createBoard() {
+            board.innerHTML = "";
+            puzzle.forEach((number, index) => {
+                const cell = document.createElement("div");
+                cell.classList.add("cell");
+                cell.textContent = number;
+                cell.dataset.index = index;
+                if (number === "") {
+                    cell.classList.add("empty");
+                } else {
+                    cell.addEventListener("click", handleCellClick);
+                }
+                board.appendChild(cell);
+            });
         }
+
+        function handleCellClick(e) {
+            const index = e.target.dataset.index;
+            const neighbors = getNeighbors(emptyIndex);
+            if (neighbors.includes(index)) {
+                swap(index);
+            }
+        }
+
+        function getNeighbors(index) {
+            const neighbors = [];
+            const row = Math.floor(index / 3);
+            const col = index % 3;
+            if (row > 0) neighbors.push(index - 3); // Up
+            if (row < 2) neighbors.push(index + 3); // Down
+            if (col > 0) neighbors.push(index - 1); // Left
+            if (col < 2) neighbors.push(index + 1); // Right
+            return neighbors;
+        }
+
+        function swap(index) {
+            puzzle[emptyIndex] = puzzle[index];
+            puzzle[index] = "";
+            emptyIndex = index;
+            createBoard();
+
+            if (isSolved()) {
+                document.getElementById("message").textContent = "You solved the puzzle!";
+            }
+        }
+
+        function isSolved() {
+            return puzzle.join("") === "12345678";
+        }
+
+        function resetGame() {
+            puzzle = [1, 2, 3, 4, 5, 6, 7, 8, ""];
+            emptyIndex = 8;
+            createBoard();
+            document.getElementById("message").textContent = "";
+        }
+
+        createBoard();
     </script>
 
 </body>
