@@ -484,24 +484,27 @@
     <script>
         const canvas = document.getElementById("mazeCanvas");
         const ctx = canvas.getContext("2d");
-        canvas.width = 600;
-        canvas.height = 600;
+        canvas.width = 800; // увеличиваем ширину
+        canvas.height = 800; // увеличиваем высоту
 
         // Размеры ячеек в лабиринте
-        const cellSize = 30;
+        const cellSize = 40;
 
         // Лабиринт (0 - путь, 1 - стена)
         const maze = [
-            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-            [1, 0, 0, 1, 0, 0, 0, 1, 0, 1],
-            [1, 0, 1, 1, 0, 1, 1, 1, 0, 1],
-            [1, 0, 1, 0, 0, 0, 1, 1, 0, 1],
-            [1, 0, 1, 1, 1, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 1, 1, 1, 1, 1, 1],
-            [1, 1, 1, 0, 0, 1, 0, 0, 0, 1],
-            [1, 0, 1, 1, 0, 1, 1, 1, 1, 1],
-            [1, 0, 0, 1, 0, 0, 1, 0, 0, 1],
-            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1],
+            [1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1],
+            [1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1],
+            [1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1],
+            [1, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1],
+            [1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1],
+            [1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         ];
 
         // Игрок
@@ -513,6 +516,9 @@
             color: "#FF0000",
             speed: 1
         };
+
+        // Выход (находится в правом нижнем углу)
+        const exit = { x: 12, y: 11, width: cellSize, height: cellSize, color: "#00FF00" };
 
         // Рисуем лабиринт
         function drawMaze() {
@@ -530,6 +536,12 @@
         function drawPlayer() {
             ctx.fillStyle = player.color;
             ctx.fillRect(player.x * cellSize, player.y * cellSize, player.width, player.height);
+        }
+
+        // Рисуем выход
+        function drawExit() {
+            ctx.fillStyle = exit.color;
+            ctx.fillRect(exit.x * cellSize, exit.y * cellSize, exit.width, exit.height);
         }
 
         // Обновление позиции игрока
@@ -569,7 +581,7 @@
 
         // Проверка на выход
         function checkExit() {
-            if (player.x === 8 && player.y === 8) {
+            if (player.x === exit.x && player.y === exit.y) {
                 alert("Congratulations! You found the exit!");
                 player.x = 1;
                 player.y = 1; // Возвращаем игрока в начало
@@ -581,6 +593,7 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height); // Очищаем экран
             drawMaze(); // Рисуем лабиринт
             drawPlayer(); // Рисуем игрока
+            drawExit(); // Рисуем выход
             checkExit(); // Проверка на выход
             requestAnimationFrame(gameLoop);
         }
@@ -590,6 +603,7 @@
     </script>
 </body>
 </html>
+
 
     
 </body>
