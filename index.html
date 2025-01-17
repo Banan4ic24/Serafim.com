@@ -1,71 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>World Clock</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-            background-color: #f4f4f9;
-        }
-        .clock {
-            margin: 20px;
-            font-size: 24px;
-            font-weight: bold;
-            background-color: #333;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            display: inline-block;
-            width: 200px;
-        }
-        .clock span {
-            display: block;
-            margin: 10px 0;
-        }
-    </style>
-</head>
-<body>
-
-    <h1>World Time Clock</h1>
-    <div id="clockNewYork" class="clock"></div>
-    <div id="clockLondon" class="clock"></div>
-    <div id="clockMoscow" class="clock"></div>
-    <div id="clockParis" class="clock"></div>
-    <div id="clockTokyo" class="clock"></div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script>
-        // Функция для отображения времени в разных городах
-        function updateTime(city, timezone, clockElementId) {
-            let now = moment().tz(timezone);
-            let timeString = now.format('HH:mm:ss');
-            let cityName = city;
-
-            document.getElementById(clockElementId).innerHTML = `
-                <span>${cityName}</span>
-                <span>${timeString}</span>
-            `;
-        }
-
-        // Обновляем время для разных городов
-        function updateClocks() {
-            updateTime('New York', 'America/New_York', 'clockNewYork');
-            updateTime('London', 'Europe/London', 'clockLondon');
-            updateTime('Moscow', 'Europe/Moscow', 'clockMoscow');
-            updateTime('Paris', 'Europe/Paris', 'clockParis');
-            updateTime('Tokyo', 'Asia/Tokyo', 'clockTokyo');
-        }
-
-        // Обновляем время каждую секунду
-        setInterval(updateClocks, 1000);
-        updateClocks(); // Первоначальное обновление
-    </script>
-</body>
-</html>
 
 
 <!DOCTYPE html>
@@ -181,6 +113,85 @@
         <p>Future Developer & Tech Enthusiast</p>
         <button onclick="toggleTheme()">Switch Theme</button>
     </header>
+    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Clock</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #f4f4f9;
+        }
+        .clock {
+            margin: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            display: inline-block;
+            width: 200px;
+        }
+        .clock span {
+            display: block;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>World Time Clock</h1>
+    <div id="clockNewYork" class="clock"></div>
+    <div id="clockLondon" class="clock"></div>
+    <div id="clockMoscow" class="clock"></div>
+    <div id="clockParis" class="clock"></div>
+    <div id="clockTokyo" class="clock"></div>
+
+    <script>
+        // Функция для отображения времени в разных городах
+        function updateTime(city, offset, clockElementId) {
+            const now = new Date();
+            const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+            const localTime = new Date(utc + (3600000 * offset));
+
+            let hours = localTime.getHours();
+            let minutes = localTime.getMinutes();
+            let seconds = localTime.getSeconds();
+
+            // Форматируем время с ведущими нулями
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            const timeString = `${hours}:${minutes}:${seconds}`;
+
+            document.getElementById(clockElementId).innerHTML = `
+                <span>${city}</span>
+                <span>${timeString}</span>
+            `;
+        }
+
+        // Обновляем время для разных городов
+        function updateClocks() {
+            updateTime('New York', -5, 'clockNewYork');   // Нью-Йорк: UTC -5
+            updateTime('London', 0, 'clockLondon');        // Лондон: UTC +0
+            updateTime('Moscow', 3, 'clockMoscow');        // Москва: UTC +3
+            updateTime('Paris', 1, 'clockParis');          // Париж: UTC +1
+            updateTime('Tokyo', 9, 'clockTokyo');          // Токио: UTC +9
+        }
+
+        // Обновляем время каждую секунду
+        setInterval(updateClocks, 1000);
+        updateClocks(); // Первоначальное обновление
+    </script>
+</body>
+</html>
 
     <section class="experience">
         <h2>My Experience</h2>
