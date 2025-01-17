@@ -484,11 +484,10 @@
     <script>
         const canvas = document.getElementById("mazeCanvas");
         const ctx = canvas.getContext("2d");
-        canvas.width = 800; // увеличиваем ширину
-        canvas.height = 800; // увеличиваем высоту
+        canvas.width = 800; // ширина
+        canvas.height = 800; // высота
 
-        // Размеры ячеек в лабиринте
-        const cellSize = 40;
+        const cellSize = 40; // размер ячеек
 
         // Лабиринт (0 - путь, 1 - стена)
         const maze = [
@@ -517,7 +516,7 @@
             speed: 1
         };
 
-        // Выход (находится в правом нижнем углу)
+        // Выход лабиринта (расставим его в правом нижнем углу)
         const exit = { x: 12, y: 11, width: cellSize, height: cellSize, color: "#00FF00" };
 
         // Рисуем лабиринт
@@ -582,7 +581,7 @@
         // Проверка на выход
         function checkExit() {
             if (player.x === exit.x && player.y === exit.y) {
-                alert("Congratulations! You found the exit!");
+                alert("Поздравляем! Вы нашли выход!");
                 player.x = 1;
                 player.y = 1; // Возвращаем игрока в начало
             }
@@ -603,7 +602,6 @@
     </script>
 </body>
 </html>
-
 
     
 </body>
