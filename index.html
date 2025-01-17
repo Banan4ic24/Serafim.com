@@ -602,6 +602,27 @@
         // Start the game when the page loads
         startGame();
     </script>
+
+<h2>Guess the Secret Code!</h2>
+<input type="number" id="userGuess" placeholder="Enter your guess" />
+<button onclick="checkGuess()">Submit</button>
+<p id="hint"></p>
+
+<script>
+    let secretCode = Math.floor(Math.random() * 100) + 1;
+    
+    function checkGuess() {
+        let userGuess = parseInt(document.getElementById("userGuess").value);
+        if (userGuess === secretCode) {
+            document.getElementById("hint").innerText = "Congratulations! You guessed the secret code!";
+        } else if (userGuess < secretCode) {
+            document.getElementById("hint").innerText = "Try higher!";
+        } else {
+            document.getElementById("hint").innerText = "Try lower!";
+        }
+    }
+</script>
+
     
 </body>
 </html>
