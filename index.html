@@ -521,5 +521,58 @@
         startGame();
     </script>
 
+    .loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #ff007f;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallax Effect</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        .parallax {
+            background-image: url('https://source.unsplash.com/1600x900/?nature,water');
+            height: 100vh;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .content {
+            text-align: center;
+            padding: 50px;
+            font-size: 24px;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="parallax"></div>
+    <div class="content">
+        <h2>Scroll Down</h2>
+        <p>This is a cool parallax effect!</p>
+    </div>
+    <div class="parallax"></div>
+
+</body>
+</html>
+
+
 </body>
 </html>
