@@ -458,7 +458,47 @@
         });
     </script>
 
-    
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Roller</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #dice {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Dice Roller</h1>
+    <div id="dice">🎲</div>
+    <button onclick="rollDice()">Roll the Dice!</button>
+    <p id="result"></p>
+
+    <script>
+        function rollDice() {
+            const dice = Math.floor(Math.random() * 6) + 1;
+            document.getElementById("dice").textContent = "🎲 " + dice;
+            document.getElementById("result").textContent = "You rolled a " + dice + "!";
+        }
+    </script>
+
+</body>
+</html>
+
     
 </body>
 </html>
