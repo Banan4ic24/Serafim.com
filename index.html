@@ -458,6 +458,226 @@
         });
     </script>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048 Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #faf8ef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .game-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            background-color: #bbada0;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 10px;
+            height: 100%;
+            width: 100%;
+        }
+        .cell {
+            width: 80px;
+            height: 80px;
+            background-color: #ccc0b3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: #776e65;
+            border-radius: 5px;
+        }
+        .cell-2 { background-color: #eee4da; color: #776e65; }
+        .cell-4 { background-color: #ece0c8; color: #776e65; }
+        .cell-8 { background-color: #f2b179; color: white; }
+        .cell-16 { background-color: #f59563; color: white; }
+        .cell-32 { background-color: #f67c5f; color: white; }
+        .cell-64 { background-color: #f65e3b; color: white; }
+        .cell-128 { background-color: #edcf72; color: white; }
+        .cell-256 { background-color: #edcc61; color: white; }
+        .cell-512 { background-color: #edc850; color: white; }
+        .cell-1024 { background-color: #edc53f; color: white; }
+        .cell-2048 { background-color: #edc22e; color: white; }
+        .cell-empty { background-color: #ccc0b3; }
+        .score {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <div class="score">Score: <span id="score">0</span></div>
+        <div class="grid" id="grid"></div>
+        <button onclick="startGame()">Start New Game</button>
+    </div>
+
+    <script>
+        let grid, score, cells, currentScore, moves;
+        const size = 4;
+        const directions = { 37: 'left', 38: 'up', 39: 'right', 40: 'down' }; // Arrow keys
+        const keyMap = { left: 37, up: 38, right: 39, down: 40 };
+
+        function init() {
+            grid = Array(size).fill().map(() => Array(size).fill(0));
+            score = 0;
+            currentScore = 0;
+            cells = [];
+            moves = [];
+            render();
+        }
+
+        function render() {
+            const gridContainer = document.getElementById("grid");
+            gridContainer.innerHTML = '';
+            grid.forEach((row, rowIndex) => {
+                row.forEach((cell, colIndex) => {
+                    const div = document.createElement("div");
+                    div.classList.add("cell");
+                    div.classList.add(`cell-${cell || 'empty'}`);
+                    div.textContent = cell ? cell : '';
+                    gridContainer.appendChild(div);
+                });
+            });
+            document.getElementById("score").textContent = currentScore;
+        }
+
+        function generateRandomTile() {
+            let emptyCells = [];
+            grid.forEach((row, rowIndex) => {
+                row.forEach((cell, colIndex) => {
+                    if (cell === 0) emptyCells.push([rowIndex, colIndex]);
+                });
+            });
+            if (emptyCells.length) {
+                const [row, col] = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                grid[row][col] = Math.random() < 0.9 ? 2 : 4;
+                render();
+            }
+        }
+
+        function moveLeft() {
+            let moved = false;
+            grid.forEach((row, rowIndex) => {
+                const newRow = row.filter(num => num !== 0);
+                for (let i = 0; i < newRow.length - 1; i++) {
+                    if (newRow[i] === newRow[i + 1]) {
+                        newRow[i] *= 2;
+                        currentScore += newRow[i];
+                        newRow[i + 1] = 0;
+                        moved = true;
+                    }
+                }
+                grid[rowIndex] = newRow.filter(num => num !== 0).concat(Array(size - newRow.length).fill(0));
+            });
+            return moved;
+        }
+
+        function rotateGrid() {
+            grid = grid[0].map((_, index) => grid.map(row => row[index]));
+        }
+
+        function mergeLeft() {
+            if (moveLeft()) {
+                generateRandomTile();
+                return true;
+            }
+            return false;
+        }
+
+        function moveUp() {
+            rotateGrid();
+            if (mergeLeft()) {
+                rotateGrid();
+                rotateGrid();
+                rotateGrid();
+                return true;
+            }
+            rotateGrid();
+            rotateGrid();
+            rotateGrid();
+            return false;
+        }
+
+        function moveDown() {
+            rotateGrid();
+            rotateGrid();
+            if (mergeLeft()) {
+                rotateGrid();
+                rotateGrid();
+                rotateGrid();
+                return true;
+            }
+            rotateGrid();
+            rotateGrid();
+            rotateGrid();
+            return false;
+        }
+
+        function moveRight() {
+            grid.forEach((row, rowIndex) => {
+                grid[rowIndex] = row.reverse();
+            });
+            if (mergeLeft()) {
+                grid.forEach((row, rowIndex) => {
+                    grid[rowIndex] = row.reverse();
+                });
+                return true;
+            }
+            grid.forEach((row, rowIndex) => {
+                grid[rowIndex] = row.reverse();
+            });
+            return false;
+        }
+
+        function handleKeyPress(event) {
+            if (directions[event.keyCode]) {
+                if (moves[directions[event.keyCode]]) return;
+                moves[directions[event.keyCode]] = true;
+                let moved = false;
+                switch (event.keyCode) {
+                    case keyMap.left: moved = moveLeft(); break;
+                    case keyMap.right: moved = moveRight(); break;
+                    case keyMap.up: moved = moveUp(); break;
+                    case keyMap.down: moved = moveDown(); break;
+                }
+                if (moved) {
+                    generateRandomTile();
+                    moves = [];
+                }
+                render();
+            }
+        }
+
+        function startGame() {
+            init();
+            generateRandomTile();
+            generateRandomTile();
+        }
+
+        startGame();
+        window.addEventListener('keydown', handleKeyPress);
+    </script>
+
+</body>
+</html>
 
     
 </body>
