@@ -568,6 +568,7 @@
             height: 100%;
             pointer-events: none;
             display: none;
+            z-index: -1;
         }
     </style>
 </head>
@@ -576,12 +577,9 @@
     <h1>💻 Welcome to Hacker Mode</h1>
     <button onclick="hackerMode()">💻 Hacker Mode</button>
     <pre id="hackerText"></pre>
-    
+
     <!-- Холст для эффекта "дождя из символов" -->
     <canvas id="matrixRain"></canvas>
-
-    <!-- Хакерский звук -->
-    <audio id="hackerSound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
 
     <script>
         function hackerMode() {
@@ -591,7 +589,6 @@
             let i = 0;
 
             document.getElementById("matrixRain").style.display = "block";
-            document.getElementById("hackerSound").play();
 
             let interval = setInterval(() => {
                 hackerDiv.textContent += text[i];
@@ -630,6 +627,7 @@
 
 </body>
 </html>
+
 
 
 </body>
