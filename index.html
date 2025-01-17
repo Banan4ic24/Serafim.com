@@ -458,5 +458,152 @@
         });
     </script>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Platformer Game</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #87CEEB;
+        }
+        canvas {
+            display: block;
+            margin: 0 auto;
+            background-color: #add8e6;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+
+    <script>
+        // Настройки игры
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let gravity = 0.5;
+        let isJumping = false;
+        let isFalling = false;
+
+        // Персонаж
+        let player = {
+            x: 100,
+            y: canvas.height - 150,
+            width: 50,
+            height: 50,
+            speed: 5,
+            dx: 0,
+            dy: 0,
+        };
+
+        // Платформы
+        let platforms = [
+            {x: 0, y: canvas.height - 50, width: canvas.width, height: 50}, // нижняя платформа
+            {x: 200, y: canvas.height - 200, width: 200, height: 20}, // средняя платформа
+            {x: 500, y: canvas.height - 300, width: 150, height: 20}, // верхняя платформа
+        ];
+
+        // Обработка движения
+        function moveRight() {
+            player.dx = player.speed;
+        }
+
+        function moveLeft() {
+            player.dx = -player.speed;
+        }
+
+        function stopMoving() {
+            player.dx = 0;
+        }
+
+        function jump() {
+            if (!isJumping && !isFalling) {
+                player.dy = -10; // Сила прыжка
+                isJumping = true;
+            }
+        }
+
+        // Обновление состояния игры
+        function update() {
+            player.y += player.dy;
+            player.x += player.dx;
+
+            // Гравитация
+            if (player.y + player.height < canvas.height) {
+                player.dy += gravity; // Падение
+                isFalling = true;
+            } else {
+                isFalling = false;
+                isJumping = false;
+                player.dy = 0;
+                player.y = canvas.height - player.height; // Платформа
+            }
+
+            // Столкновение с платформами
+            platforms.forEach(platform => {
+                if (player.y + player.height <= platform.y && player.y + player.height + player.dy >= platform.y && player.x + player.width > platform.x && player.x < platform.x + platform.width) {
+                    player.dy = 0;
+                    isJumping = false;
+                    player.y = platform.y - player.height;
+                }
+            });
+
+            // Двигаем персонажа по горизонтали
+            if (player.x < 0) player.x = 0;
+            if (player.x + player.width > canvas.width) player.x = canvas.width - player.width;
+        }
+
+        // Рисуем персонажа
+        function drawPlayer() {
+            ctx.fillStyle = "#FF0000";
+            ctx.fillRect(player.x, player.y, player.width, player.height);
+        }
+
+        // Рисуем платформы
+        function drawPlatforms() {
+            ctx.fillStyle = "#008000";
+            platforms.forEach(platform => {
+                ctx.fillRect(platform.x, platform.y, platform.width, platform.height);
+            });
+        }
+
+        // Игровой цикл
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            update();
+            drawPlatforms();
+            drawPlayer();
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Управление
+        document.addEventListener("keydown", function(e) {
+            if (e.code === "ArrowRight") {
+                moveRight();
+            } else if (e.code === "ArrowLeft") {
+                moveLeft();
+            } else if (e.code === "Space") {
+                jump();
+            }
+        });
+
+        document.addEventListener("keyup", function(e) {
+            if (e.code === "ArrowRight" || e.code === "ArrowLeft") {
+                stopMoving();
+            }
+        });
+
+        // Запуск игры
+        gameLoop();
+    </script>
+
+
+    
 </body>
 </html>
