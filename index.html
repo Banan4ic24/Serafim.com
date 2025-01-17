@@ -187,12 +187,16 @@
     }
 </script>
 
-    <section class="ai-assistant">
+  <section class="ai-assistant">
     <h2>🤖 AI Assistant</h2>
     <p>Ask me anything!</p>
     <input type="text" id="userQuestion" placeholder="Ask a question...">
     <button onclick="askAI()">Ask</button>
     <p id="aiResponse"></p>
+
+    <!-- Заголовок перед кнопками -->
+    <h3>🔒 Secret Features</h3>
+
     <button onclick="showQuestions()">Show Questions</button>
     <div id="questionsList" style="display: none;">
         <h3>Here are some questions you can ask:</h3>
@@ -241,7 +245,6 @@
             const time = now.toLocaleTimeString(); // Get current time
             response.textContent = `The current time is: ${time}. ⏰`;
         } else if (question.includes("what's the weather")) {
-            // Static weather info; you can integrate a real API for dynamic data
             response.textContent = "The weather is great! 🌞 (For real weather updates, you would need to connect a weather API).";
         } else if (question.includes("what is artificial intelligence") || question.includes("what is ai")) {
             response.textContent = "Artificial Intelligence (AI) is a branch of computer science that develops systems capable of performing tasks that require human-like intelligence, such as learning, perception, problem-solving, and decision-making.";
@@ -285,6 +288,8 @@
         const questionsDiv = document.getElementById("questionsList");
         questionsDiv.style.display = questionsDiv.style.display === "none" ? "block" : "none";
     }
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
