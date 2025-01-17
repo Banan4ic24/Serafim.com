@@ -524,6 +524,112 @@
         startGame();
     </script>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker Mode</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        button {
+            background: black;
+            color: #00ff00;
+            font-size: 20px;
+            padding: 10px 20px;
+            border: 2px solid #00ff00;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #00ff00;
+            color: black;
+        }
+
+        pre {
+            font-size: 18px;
+            white-space: pre-wrap;
+            text-shadow: 0 0 5px #00ff00;
+        }
+
+        #matrixRain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>💻 Welcome to Hacker Mode</h1>
+    <button onclick="hackerMode()">💻 Hacker Mode</button>
+    <pre id="hackerText"></pre>
+    
+    <!-- Холст для эффекта "дождя из символов" -->
+    <canvas id="matrixRain"></canvas>
+
+    <!-- Хакерский звук -->
+    <audio id="hackerSound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
+
+    <script>
+        function hackerMode() {
+            let text = "Initializing...\nAccess Granted!\nDownloading secret data...\n[██████████] 100%\nSystem Hacked! 🚀\n";
+            let hackerDiv = document.getElementById("hackerText");
+            hackerDiv.textContent = "";
+            let i = 0;
+
+            document.getElementById("matrixRain").style.display = "block";
+            document.getElementById("hackerSound").play();
+
+            let interval = setInterval(() => {
+                hackerDiv.textContent += text[i];
+                i++;
+                if (i >= text.length) clearInterval(interval);
+            }, 50);
+        }
+
+        // Matrix rain effect
+        const canvas = document.getElementById("matrixRain");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        const columns = canvas.width / 20;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#00ff00";
+            ctx.font = "20px monospace";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters.charAt(Math.floor(Math.random() * letters.length));
+                ctx.fillText(text, i * 20, drops[i] * 20);
+                if (drops[i] * 20 > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 50);
+    </script>
+
+</body>
+</html>
 
 
 </body>
