@@ -458,12 +458,12 @@
         });
     </script>
 
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Number Puzzle</title>
+    <title>Memory Game</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -472,101 +472,107 @@
         }
         .board {
             display: grid;
-            grid-template-columns: repeat(3, 100px);
-            grid-template-rows: repeat(3, 100px);
-            gap: 5px;
+            grid-template-columns: repeat(4, 100px);
+            grid-template-rows: repeat(4, 100px);
+            gap: 10px;
             margin: 20px auto;
         }
-        .cell {
+        .card {
             width: 100px;
             height: 100px;
-            border: 1px solid #ccc;
-            font-size: 2em;
+            background-color: #ccc;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
+            font-size: 24px;
         }
         button {
             padding: 10px;
-            margin: 20px;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <h1>Number Puzzle</h1>
+    <h1>Memory Game</h1>
     <div class="board" id="board"></div>
-    <button onclick="resetGame()">Reset Game</button>
+    <button onclick="startGame()">Start Game</button>
     <p id="message"></p>
 
     <script>
         const board = document.getElementById("board");
-        let puzzle = [1, 2, 3, 4, 5, 6, 7, 8, ""];
-        let emptyIndex = 8;
+        let cards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        const totalPairs = 8;
 
         function createBoard() {
+            cards = [];
+            matchedPairs = 0;
+            document.getElementById("message").textContent = "";
+
+            const numbers = Array.from({ length: totalPairs }, (_, i) => i + 1);
+            const shuffledNumbers = [...numbers, ...numbers].sort(() => Math.random() - 0.5);
+
+            shuffledNumbers.forEach(number => {
+                cards.push({ value: number, flipped: false });
+            });
+
             board.innerHTML = "";
-            puzzle.forEach((number, index) => {
-                const cell = document.createElement("div");
-                cell.classList.add("cell");
-                cell.textContent = number;
-                cell.dataset.index = index;
-                if (number === "") {
-                    cell.classList.add("empty");
-                } else {
-                    cell.addEventListener("click", handleCellClick);
-                }
-                board.appendChild(cell);
+            cards.forEach((card, index) => {
+                const div = document.createElement("div");
+                div.classList.add("card");
+                div.dataset.index = index;
+                div.addEventListener("click", flipCard);
+                board.appendChild(div);
             });
         }
 
-        function handleCellClick(e) {
+        function flipCard(e) {
             const index = e.target.dataset.index;
-            const neighbors = getNeighbors(emptyIndex);
-            if (neighbors.includes(index)) {
-                swap(index);
+            const card = cards[index];
+
+            if (card.flipped || flippedCards.length === 2) return;
+
+            card.flipped = true;
+            e.target.textContent = card.value;
+            e.target.style.backgroundColor = "#fff";
+            flippedCards.push({ card, element: e.target });
+
+            if (flippedCards.length === 2) {
+                setTimeout(checkMatch, 1000);
             }
         }
 
-        function getNeighbors(index) {
-            const neighbors = [];
-            const row = Math.floor(index / 3);
-            const col = index % 3;
-            if (row > 0) neighbors.push(index - 3); // Up
-            if (row < 2) neighbors.push(index + 3); // Down
-            if (col > 0) neighbors.push(index - 1); // Left
-            if (col < 2) neighbors.push(index + 1); // Right
-            return neighbors;
-        }
-
-        function swap(index) {
-            puzzle[emptyIndex] = puzzle[index];
-            puzzle[index] = "";
-            emptyIndex = index;
-            createBoard();
-
-            if (isSolved()) {
-                document.getElementById("message").textContent = "You solved the puzzle!";
+        function checkMatch() {
+            const [first, second] = flippedCards;
+            if (first.card.value === second.card.value) {
+                matchedPairs++;
+                if (matchedPairs === totalPairs) {
+                    document.getElementById("message").textContent = "You win!";
+                }
+            } else {
+                first.card.flipped = false;
+                second.card.flipped = false;
+                first.element.style.backgroundColor = "#ccc";
+                second.element.style.backgroundColor = "#ccc";
+                first.element.textContent = "";
+                second.element.textContent = "";
             }
+            flippedCards = [];
         }
 
-        function isSolved() {
-            return puzzle.join("") === "12345678";
-        }
-
-        function resetGame() {
-            puzzle = [1, 2, 3, 4, 5, 6, 7, 8, ""];
-            emptyIndex = 8;
+        function startGame() {
             createBoard();
-            document.getElementById("message").textContent = "";
         }
 
-        createBoard();
+        startGame();
     </script>
 
 </body>
 </html>
+
 
     
 </body>
